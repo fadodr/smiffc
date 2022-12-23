@@ -16,15 +16,13 @@
         <form action="./database/request-blood.php" method="POST">
             <h3>Blood Request Form</h3>
             <?php
-                if (isset($_GET['error'])) {
-                    if ($_GET['error'] == 'noavailablematch') {
-                        echo "<p style='color : red'>There is no blood available 
-                            that matches your blood group and genotype</p>";
-                    }
+                if (isset($_GET['error']) && $_GET['error'] == 'noavailablematch') {
+                    echo "<p style='color : red'>There is no blood available
+                        that matches your blood group and genotype</p>";
                 }
             ?>
-            <label for="donor_name">Reason for blood request</label><br />
-            <textarea type="text" name="donor_name" placeholder="Enter Full Name here"></textarea><br /><br />
+            <label for="reason">Reason for blood request</label><br />
+            <textarea type="text" name="reason"></textarea><br /><br />
             <button type="submit" name="submit">Submit</button>
         </form>
     </div>

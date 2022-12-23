@@ -60,7 +60,7 @@
         <h3>Blood Bank</h3>
       </div>
     </div>
-    <div class="dashboard-section-2">
+    <!---<div class="dashboard-section-2">
       <div class="grid-child grid-child-1 grid-child-light">
         <p>Volume of blood collected (In paints)</p>
         <h3>123,456.78</h3>
@@ -103,7 +103,7 @@
         <div class="canv canv1"></div>
         <div class="canv canv2"></div>
       </div>
-    </div>
+    </div>-->
     <div class="dashboard-section-4">
       <?php
       require_once("./database/connectDb.php");

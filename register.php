@@ -27,7 +27,8 @@
           echo "<p style='color : red'>Email address already exist</p>";
         }
       } elseif ($_GET['register'] == 'success') {
-        echo "<p style='color : green'>You have successfully added a new patient</p>";
+        echo "<p style='color : green'>You have successfully added a new patient.
+        The new patient assigned id is ".$_GET['patient_id']."</p>";
       }
       ?>
       <label for="fullname">Full Name</label><br />

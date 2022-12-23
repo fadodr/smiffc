@@ -8,8 +8,9 @@
         $patientGenotype = $_SESSION['patient_genotype'];
 
         $sql = "SELECT * FROM blood_bank
-        WHERE donor_blood_group = '.$patientBloodGroup'
-        AND donor_genotype = '.$patientGenotype.' AND blood_status = 'approved' LIMIT 1";
+        WHERE donor_blood_group = '$patientBloodGroup'
+        AND donor_genotype = '$patientGenotype' AND blood_status= 'approved'
+        ORDER BY RAND () LIMIT 1";
 
         $result = mysqli_query($conn, $sql);
         $records = mysqli_num_rows($result);
@@ -24,14 +25,15 @@
             VALUES (?, ? , ?)";
         $stmt = mysqli_stmt_init($conn);
 
+
         if (!mysqli_stmt_prepare($stmt, $sql)) {
             header("location: ../request-blood.php?error=sqlerror");
             exit();
         } else {
             mysqli_stmt_bind_param(
                 $stmt,
-                "sssss",
-                $row['donor_id'],
+                "sss",
+                $row['uuid'],
                 $_SESSION['patient_id'],
                 $reason
             );

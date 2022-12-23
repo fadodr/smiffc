@@ -84,10 +84,16 @@
           $sql = "SELECT * FROM blood_bank";
           $result = mysqli_query($conn, $sql);
           $records = mysqli_num_rows($result);
-          echo $records
+          echo $records;
           ?>
         </h3>
-        <p><b>+ 33.5%</b> in the last month</p>
+        <?php
+        $sql = "SELECT * FROM blood_bank WHERE date_donated>now() - interval 1 month";
+        $result = mysqli_query($conn, $sql);
+        $last_mon_records = mysqli_num_rows($result);
+        $percent_inc = (($records - $last_mon_records) / $records) * 100;
+        echo "<p><b>+ $percent_inc%</b> in the last month</p>"
+        ?>
         <div class="canv canv1"></div>
         <div class="canv canv2"></div>
       </div>
@@ -109,13 +115,19 @@
         <p>Total Patients</p>
         <h3>
           <?php
-          $sql = "SELECT * FROM patients";
-          $result = mysqli_query($conn, $sql);
-          $records = mysqli_num_rows($result);
-          echo $records
+            $sql = "SELECT * FROM patients";
+            $result = mysqli_query($conn, $sql);
+            $records = mysqli_num_rows($result);
+            echo $records
           ?>
         </h3>
-        <p><b>- 8.67%</b> in the last month</p>
+        <?php
+          $sql = "SELECT * FROM patients WHERE date_created>now() - interval 1 month";
+          $result = mysqli_query($conn, $sql);
+          $last_mon_records = mysqli_num_rows($result);
+          $percent_inc = (($records - $last_mon_records) / $records) * 100;
+          echo "<p><b>+ $percent_inc%</b> in the last month</p>"
+        ?>
         <div class="canv canv1"></div>
         <div class="canv canv2"></div>
       </div>

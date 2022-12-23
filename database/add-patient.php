@@ -24,8 +24,13 @@
             exit();
         }
 
-        $sql = "INSERT INTO patients (fullname, email, phone, blood_group, genotype)
-            VALUES (?, ?, ?, ?, ?)";
+        $sql = "SELECT UUID()";
+        $result = mysqli_query($conn, $sql);
+        $row = mysqli_fetch_array($result);
+        $uuid = $row[0];
+
+        $sql = "INSERT INTO patients (uuid, fullname, email, phone, blood_group, genotype)
+            VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = mysqli_stmt_init($conn);
 
         if (!mysqli_stmt_prepare($stmt, $sql)) {
@@ -34,7 +39,8 @@
         } else {
             mysqli_stmt_bind_param(
                 $stmt,
-                "sssss",
+                "ssssss",
+                $uuid,
                 $fullname,
                 $email,
                 $phone,
@@ -43,7 +49,7 @@
             );
             mysqli_stmt_execute($stmt);
 
-            header("location: ../register.php?register=success");
+            header("location: ../register.php?register=success&patient_id=$uuid");
             exit();
         }
         mysqli_stmt_close($stmt);

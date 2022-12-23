@@ -12,9 +12,11 @@
 <body>
     <?php
         session_start();
+        if (!isset($_SESSION['patient_id'])) {
+            header('location : /smiffb/login.php');
+            exit();
+        }
         require_once('./database/connectDb.php');
-
-        $patientId = $_SESSION['patient_id'];
     ?>
 
     <!-- Dashboard Start -->
@@ -23,6 +25,11 @@
             <div class="dashboard-section-1-left">
                 <h3>Dashboard</h3>
                 <p>Welcome, <?php echo $_SESSION['patient_name'] ?> 👋</p>
+                <?php
+                    if (isset($_GET['message']) && $_GET['message'] == 'requestsuccess') {
+                        echo "<p style='color : green'>Your request for blood is successful</p>";
+                    }
+                ?>
             </div>
             <div class="dashboard-section-1-right">
                 <a href="request-blood.php">
@@ -38,27 +45,13 @@
                 <p>Total blood you have collected</p>
                 <h3>
                     <?php
-                        $sql = "SELECT * FROM recipient_history WHERE recipient_id = '".$patientId."' ";
+                        $sql = "SELECT * FROM recipient_history WHERE recipient_id = '". $_SESSION['patient_id']."' ";
                         $result = mysqli_query($conn, $sql);
                         $records = mysqli_num_rows($result);
                         echo $records
                     ?>
                 </h3>
                 <p><b>+ 33.5%</b> in the last month</p>
-                <div class="canv canv1"></div>
-                <div class="canv canv2"></div>
-            </div>
-            <div class="grid-child grid-child-2 grid-child-light">
-                <p>Total Patients</p>
-                <h3>
-                    <?php
-                    $sql = "SELECT * FROM patients";
-                    $result = mysqli_query($conn, $sql);
-                    $records = mysqli_num_rows($result);
-                    echo $records
-                    ?>
-                </h3>
-                <p><b>- 8.67%</b> in the last month</p>
                 <div class="canv canv1"></div>
                 <div class="canv canv2"></div>
             </div>
@@ -81,7 +74,7 @@
                     $patientId = $_SESSION['patient_id'];
                     $sql = "SELECT * FROM recipient_history
                     INNER JOIN blood_bank on recipient_history.donor_id = blood_bank.uuid
-                    WHERE recipient_id = '" . $patientId . "' ";
+                    WHERE recipient_id = '" . $_SESSION['patient_id'] . "' ";
 
                     $result = mysqli_query($conn, $sql);
                     $records = mysqli_num_rows($result);
