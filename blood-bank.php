@@ -125,15 +125,18 @@
             <th>Action</th>
           </tr>
         </thead>";
-        while ($row = mysqli_fetch_assoc($result)) {
-          echo "<tr>
-                  <td>" . $row['donor_fullname'] . "</td>
-                  <td>" . $row['donor_blood_group'] . "</td>
-                  <td>" . $row['donor_genotype'] . "</td>
-                  <td>" . $row['blood_status'] . "</td>
-                  <td>" . $row['date_donated'] . "</td>
-                  <td><button>View</button></td>
-                </tr>";
+        while ($row = mysqli_fetch_object($result)) {
+          echo '<tr>
+                  <td>' . $row->donor_fullname . '</td>
+                  <td>' . $row->donor_blood_group . '</td>
+                  <td>' . $row->donor_genotype . '</td>
+                  <td>' . $row->blood_status . '</td>
+                  <td>' . $row->date_donated . '</td>';
+          echo '<td><button onclick="openBloodModal(\'' . $row->uuid . '\',\''.$row->date_donated.'\',
+            \'' . $row->donor_fullname . '\', \'' . $row->donor_blood_group . '\',
+            \'' . $row->donor_email . '\', \'' . $row->donor_phone . '\',
+            \'' . $row->blood_status . '\')">View</button></td>';
+          echo '</tr>';
         }
         echo "<tbody>
               </tbody>
@@ -148,52 +151,9 @@
   <div id="detailsModal" class="details-modal">
     <div class="details-header">
       <h3>Blood Info</h3>
-      <img src="images/close.png" onclick="toggleModal()" />
+      <img src="images/close.png" onclick="closeModal()" />
     </div>
-    <div class="details-body">
-      <div class="details-content">
-        <div class="details-row">
-          <div class="content-item">
-            <p class="detail">Date</p>
-            <p class="value">11 November 2022, 14:28:21</p>
-          </div>
-        </div>
-        <div class="details-row">
-          <div class="content-item">
-            <p class="detail">Donor</p>
-            <p class="value">Atanda Damilare</p>
-          </div>
-          <div class="content-item">
-            <p class="detail">Blood Type</p>
-            <p class="value blood">O+</p>
-          </div>
-        </div>
-        <div class="details-row">
-          <div class="content-item">
-            <p class="detail">Donor Email</p>
-            <p class="value">atandadray@gmail.com</p>
-          </div>
-          <div class="content-item">
-            <p class="detail">Donor Phone Number</p>
-            <p class="value">08123456789</p>
-          </div>
-        </div>
-        <div class="details-row">
-          <div class="content-item">
-            <p class="detail">Status</p>
-            <p class="value verified">• Verified</p>
-          </div>
-          <div class="content-item">
-            <p class="detail">Status</p>
-            <p class="value pending">• Pending</p>
-          </div>
-        </div>
-        <div class="details-row">
-          <div class="content-item">
-            <button class="approval-btn">Confirm Blood Approval</button>
-          </div>
-        </div>
-      </div>
+    <div id="bloodInfo" class="details-body">
     </div>
   </div>
   <!-- Entry details end -->

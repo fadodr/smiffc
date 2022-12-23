@@ -65,6 +65,7 @@
         <thead>
           <tr>
             <th>Donor</th>
+            <th>Donor phone number</th>
             <th>Recipient</th>
             <th>Date</th>
             <th>Action</th>
@@ -81,13 +82,20 @@
           $result = mysqli_query($conn, $sql);
           $records = mysqli_num_rows($result);
           while ($row = mysqli_fetch_object($result)) {
-            $data = $row->date_received;
+            $data = json_encode($row);
             echo "<tr>
                     <td>" . $row->donor_fullname . "</td>
+                    <td>" .  $row->donor_phone . "</td>
                     <td>" . $row->fullname . "</td>
-                    <td>" . $row->date_received . "</td>
-                    <td><button onclick=openRecipientModal($data)>View</button></td>
-                  </tr>";
+                    <td>" . $row->date_received . "</td>";
+            echo
+            '<td><button
+              onclick="openRecipientModal(\''.$row->date_donated .'\',
+              \''.$row->donor_fullname.'\', \''.$row->donor_blood_group.'\',
+              \'' . $row->donor_email . '\', \'' . $row->donor_phone . '\',
+              \'' . $row->blood_status . '\', \'' . $row->fullname . '\',\'' . $row->reason . '\')"
+              >View</button></td>';
+            echo "</tr>";
           }
           ?>
         </tbody>
@@ -100,61 +108,11 @@
   <div id="detailsModal" class="details-modal">
     <div class="details-header">
       <h3>Blood Donation</h3>
-      <img src="images/close.png" onclick="closeRecipientModal()" alt=""/>
+      <img src="images/close.png" onclick="closeModal()" alt="" />
     </div>
-    <div id="donorInfo" class="details-body">
-      <p>Donor Info:</p>
-      <div class="details-content">
-        <div class="details-row">
-          <div class="content-item">
-            <p class="detail">Date</p>
-            <p class="value" >11 November 2022, 14:28:21</p>
-          </div>
-        </div>
-        <div class="details-row">
-          <div class="content-item">
-            <p class="detail">Donor</p>
-            <p class="value">Atanda Damilare</p>
-          </div>
-          <div class="content-item">
-            <p class="detail">Blood Type</p>
-            <p class="value blood">O+</p>
-          </div>
-        </div>
-        <div class="details-row">
-          <div class="content-item">
-            <p class="detail">Donor Email</p>
-            <p class="value">atandadray@gmail.com</p>
-          </div>
-          <div class="content-item">
-            <p class="detail">Donor Phone Number</p>
-            <p class="value">08123456789</p>
-          </div>
-        </div>
-        <div class="details-row">
-          <div class="content-item">
-            <p class="detail">Status</p>
-            <p class="value verified">• Verified</p>
-          </div>
-        </div>
-      </div>
+    <div id="bloodDonorInfo" class="details-body">
     </div>
-    <div id="patientInfo" class="details-body">
-      <p>Patient Info:</p>
-      <div class="details-content">
-        <div class="details-row">
-          <div class="content-item">
-            <p class="detail">Patient Name</p>
-            <p class="value">Agboola Fuhad</p>
-          </div>
-        </div>
-        <div class="details-row">
-          <div class="content-item">
-            <p class="detail">Reason</p>
-            <p class="value">NA</p>
-          </div>
-        </div>
-      </div>
+    <div id="bloodPatientInfo" class="details-body">
     </div>
   </div>
   <!-- Entry details end -->

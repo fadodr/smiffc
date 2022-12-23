@@ -100,7 +100,7 @@
   <div id="detailsModal" class="details-modal">
     <div class="details-header">
       <h3>Patient Info</h3>
-      <img src="images/close.png" onclick="toggleModal()" />
+      <img src="images/close.png" onclick="toggleModal()" alt=""/>
     </div>
     <div class="details-body">
       <div class="details-content">

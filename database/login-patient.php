@@ -1,4 +1,5 @@
 <?php
+    session_start();
     if (isset($_POST['submit'])) {
         require_once("./connectDb.php");
 
@@ -20,7 +21,11 @@
             header("location: ../login.php?error=incorrectdetails");
             exit();
         } else {
-            header("Location: ../recipient-history.php");
+            $_SESSION['patient_id'] = $row['uuid'];
+            $_SESSION['patient_name'] = $row['fullname'];
+            $_SESSION['patient_blood_group'] = $row['blood_group'];
+            $_SESSION['patient_genotype'] = $row['genotype'];
+            header("Location: /smiffb/user-dashboard.php");
             exit();
         }
         mysqli_close($conn);

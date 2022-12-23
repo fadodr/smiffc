@@ -144,9 +144,9 @@
         <thead>
           <tr>
             <th>Donor</th>
+            <th>Donor phone number</th>
             <th>Recipient</th>
             <th>Date</th>
-            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -160,9 +160,9 @@
           while ($row = mysqli_fetch_assoc($result)) {
             echo "<tr>
                     <td>" . $row['donor_fullname'] . "</td>
+                    <td>" . $row['donor_phone'] . "</td>
                     <td>" . $row['fullname'] . "</td>
                     <td>" . $row['date_received'] . "</td>
-                    <td><button>View</button></td>
                   </tr>";
           }
           ?>
