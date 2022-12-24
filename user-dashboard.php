@@ -13,7 +13,7 @@
     <?php
         session_start();
         if (!isset($_SESSION['patient_id'])) {
-            header('location : /smiffb/login.php');
+            header('location: ./login.php');
             exit();
         }
         require_once('./database/connectDb.php');
@@ -26,9 +26,9 @@
                 <h3>Dashboard</h3>
                 <p>Welcome, <?php echo $_SESSION['patient_name'] ?> 👋</p>
                 <?php
-                    if (isset($_GET['message']) && $_GET['message'] == 'requestsuccess') {
-                        echo "<p style='color : green'>Your request for blood is successful</p>";
-                    }
+                if (isset($_GET['message']) && $_GET['message'] == 'requestsuccess') {
+                    echo "<p style='color : green'>Your request for blood is successful</p>";
+                }
                 ?>
             </div>
             <div class="dashboard-section-1-right">
@@ -45,13 +45,23 @@
                 <p>Total blood you have collected</p>
                 <h3>
                     <?php
-                        $sql = "SELECT * FROM recipient_history WHERE recipient_id = '". $_SESSION['patient_id']."' ";
+                        $sql = "SELECT * FROM recipient_history
+                        WHERE recipient_id = '" . $_SESSION['patient_id'] . "' ";
                         $result = mysqli_query($conn, $sql);
                         $records = mysqli_num_rows($result);
                         echo $records
                     ?>
                 </h3>
-                <p><b>+ 33.5%</b> in the last month</p>
+                <?php
+                    $sql = "SELECT * FROM recipient_history
+                    WHERE date_received>now() - interval 1 month
+                    AND recipient_id = '" . $_SESSION['patient_id'] . "' ";
+
+                    $result = mysqli_query($conn, $sql);
+                    $last_mon_records = mysqli_num_rows($result);
+                    $percent_inc = (($records - $last_mon_records) / $records) * 100;
+                    echo "<p><b>+ $percent_inc%</b> in the last month</p>"
+                ?>
                 <div class="canv canv1"></div>
                 <div class="canv canv2"></div>
             </div>

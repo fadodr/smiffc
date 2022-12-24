@@ -10,13 +10,13 @@ if (isset($_POST['submit'])) {
         exit();
     };
 
-    header("location : ../blood-bank.php");
+    header("location: ../blood-bank.php");
     exit();
 
     mysqli_stmt_close($stmt);
     mysqli_close($conn);
 } else {
-    header("location : ../blood-bank.php");
+    header("location: ../blood-bank.php");
     exit();
 }
 ?>
