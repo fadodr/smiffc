@@ -99,6 +99,49 @@ body {
   font-family: "DM Sans", sans-serif;
 }
 
+.register-right .entry-btns {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+}
+
+.register-right .entry-btns button {
+  margin-bottom: 50px;
+  border-radius: 4px;
+  height: 40px;
+  width: 400px;
+  cursor: pointer;
+  font-family: "DM Sans", sans-serif;
+  font-size: var(--normal-paragraph);
+  transition: all 0.3s ease;
+}
+
+.register-right .entry-btns button:first-child {
+  border: none;
+  background-color: var(--red);
+  color: #fff;
+}
+
+.register-right .entry-btns button:first-child:hover {
+  border: 1px solid var(--red);
+  background-color: #fff;
+  color: var(--red);
+}
+
+.register-right .entry-btns button:last-child {
+  border: 1px solid var(--red);
+  background-color: #fff;
+  color: var(--red);
+}
+
+.register-right .entry-btns button:last-child:hover {
+  border: none;
+  background-color: var(--red);
+  color: #fff;
+}
+
 /* register form end */
 
 /* donation form start */
@@ -157,7 +200,7 @@ body {
   margin-top: 3px;
 }
 
-.donation-page form textarea{
+.donation-page form textarea {
   width: 400px;
   height: 150px;
   margin-top: 10px;
@@ -295,7 +338,6 @@ body {
 .user-dashboard {
   padding: 40px 50px;
 }
-
 
 .dashboard-section-1 {
   display: flex;
